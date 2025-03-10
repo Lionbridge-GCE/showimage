@@ -18,7 +18,7 @@
 
         const id = getQueryParam("id");
         if (id) {
-            fetch("https://script.google.com/macros/s/AKfycbxKgr7ZhUW32sCjoicmHPsoS1FFeFCvIMdTm9vmi56fcetJJAsGe1elpblgce9_QMHiqw/exec?id=" + id) // Replace with your Google Apps Script URL
+           /* fetch("https://script.google.com/macros/s/AKfycbxKgr7ZhUW32sCjoicmHPsoS1FFeFCvIMdTm9vmi56fcetJJAsGe1elpblgce9_QMHiqw/exec?id=" + id) // Replace with your Google Apps Script URL
                 .then(response => response.json())
                 .then(data => {
                     if (data.base64) {
@@ -31,10 +31,31 @@
                 .catch(error => {
                     console.error("Error fetching image:", error);
                     document.body.innerHTML = "<h2>Error loading image.</h2>";
-                });
+                });*/
+
+            fetch("https://script.google.com/macros/s/AKfycbxKgr7ZhUW32sCjoicmHPsoS1FFeFCvIMdTm9vmi56fcetJJAsGe1elpblgce9_QMHiqw/exec?id=" + id)  // Replace with your Google Apps Script URL
+    .then(response => response.json())
+    .then(data => {
+        if (data.base64) {
+            document.getElementById("image").src = data.base64;
+            document.getElementById("loading").style.display = "none";
+        } else {
+            document.body.innerHTML = "<h2>Error: Image not found</h2>";
+        }
+    })
+    .catch(error => {
+        console.error("Error fetching image:", error);
+        document.body.innerHTML = "<h2>Error loading image.</h2>";
+    });
+
+
+            
         } else {
             document.body.innerHTML = "<h2>No image ID found.</h2>";
         }
+
+
+        
     </script>
 </body>
 </html>
