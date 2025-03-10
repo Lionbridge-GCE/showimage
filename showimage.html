@@ -8,6 +8,7 @@
 <body>
     <h2>Image Preview</h2>
     <img id="image" style="max-width:100%; height:auto;" />
+    <p id="loading">Loading image...</p>
 
     <script>
         function getQueryParam(name) {
@@ -15,11 +16,24 @@
             return urlParams.get(name);
         }
 
-        const base64Data = getQueryParam("data");
-        if (base64Data) {
-            document.getElementById("image").src = base64Data;
+        const id = getQueryParam("id");
+        if (id) {
+            fetch("https://script.google.com/macros/s/.../exec?id=" + id) // Replace with your Google Apps Script URL
+                .then(response => response.json())
+                .then(data => {
+                    if (data.base64) {
+                        document.getElementById("image").src = data.base64;
+                        document.getElementById("loading").style.display = "none";
+                    } else {
+                        document.body.innerHTML = "<h2>Error: Image not found</h2>";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching image:", error);
+                    document.body.innerHTML = "<h2>Error loading image.</h2>";
+                });
         } else {
-            document.body.innerHTML = "<h2>No image data found.</h2>";
+            document.body.innerHTML = "<h2>No image ID found.</h2>";
         }
     </script>
 </body>
