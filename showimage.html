@@ -1,1 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Image</title>
+</head>
+<body>
+    <h2>Image Preview</h2>
+    <img id="image" style="max-width:100%; height:auto;" />
 
+    <script>
+        function getQueryParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        const base64Data = getQueryParam("data");
+        if (base64Data) {
+            document.getElementById("image").src = base64Data;
+        } else {
+            document.body.innerHTML = "<h2>No image data found.</h2>";
+        }
+    </script>
+</body>
+</html>
