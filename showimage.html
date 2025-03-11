@@ -36,6 +36,7 @@
             fetch("https://script.google.com/macros/s/AKfycbxKgr7ZhUW32sCjoicmHPsoS1FFeFCvIMdTm9vmi56fcetJJAsGe1elpblgce9_QMHiqw/exec?id=" + id)  // Replace with your Google Apps Script URL
     .then(response => response.json())
     .then(data => {
+        alert(resposne)
         if (data.base64) {
             document.getElementById("image").src = data.base64;
             document.getElementById("loading").style.display = "none";
